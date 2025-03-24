@@ -6,8 +6,19 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Vite App</title>
   </head>
-  <body>
-    <h1 class="text-3xl font-bold underline">Hello world!</h1>
+  <body class="flex items-center justify-center h-screen bg-gray-200">
+    <div class="bg-white rounded-lg w-full max-w-lg shadow-xl p-4">
+      <h2 class="text-xl font-semibold mb-4" id="questionQuestion"></h2>
+      <form id="questionAnswersForm">
+        <ul class="space-y-2 mb-4" id="questionAnswersList"></ul>
+        <button
+          class="rounded-lg py-2 px-4 bg-blue-500 text-white font-medium hover:bg-blue-700 hover:cursor-pointer"
+          type="submit"
+        >
+          Submit Answer(s)
+        </button>
+      </form>
+    </div>
     <script type="module" src="/src/main.js"></script>
   </body>
 </html>
