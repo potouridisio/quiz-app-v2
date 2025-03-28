@@ -1,47 +1,70 @@
 import "./style.css";
 
-const questionQuestionEl = document.querySelector("#questionQuestion");
-const questionAnswersListEl = document.querySelector("#questionAnswersList");
-const questionAnswersFormEl = document.querySelector("#questionAnswersForm");
+// DOM Elements
+const questionContainer = document.querySelector("#questionQuestion");
+const answersList = document.querySelector("#questionAnswersList");
+const answersForm = document.querySelector("#questionAnswersForm");
 
-const response = await fetch("https://quizapi.io/api/v1/questions", {
+// API Data
+const apiResponse = await fetch("https://quizapi.io/api/v1/questions", {
   headers: {
     "X-Api-Key": import.meta.env.VITE_API_KEY,
   },
 });
+const quizQuestions = await apiResponse.json();
 
-const questions = await response.json();
+// State Variables
+let currentQuestionIndex = 0;
+let correctAnswers = 0;
+const currentQuestion = quizQuestions[currentQuestionIndex];
 
-let currentIndex = 0;
-
-const currentQuestion = questions[currentIndex];
-
+// Functions
 function displayQuestion(question) {
-  questionQuestionEl.textContent = question.question;
-  questionAnswersListEl.innerHTML = "";
+  questionContainer.textContent = question.question;
+  answersList.innerHTML = "";
 
   for (let key in question.answers) {
     if (question.answers[key]) {
-      const questionAnswersAnswerListItemEl = document.createElement("li");
-      questionAnswersAnswerListItemEl.textContent = question.answers[key];
-      questionAnswersListEl.appendChild(questionAnswersAnswerListItemEl);
+      const answerListItem = document.createElement("li");
+      const answerLabel = document.createElement("label");
+      answerLabel.className = "inline-flex items-center flex-row-reverse gap-2";
+      answerLabel.textContent = question.answers[key];
+      const answerInput = document.createElement("input");
+      answerInput.name = `question-${question.id}-answer`;
+      answerInput.type =
+        question.multiple_correct_answers === "false" ? "radio" : "checkbox";
+      answerInput.value = key;
+      answerLabel.appendChild(answerInput);
+      answerListItem.appendChild(answerLabel);
+      answersList.appendChild(answerListItem);
     }
   }
 }
 
-displayQuestion(currentQuestion);
-
-questionAnswersFormEl.addEventListener("submit", (event) => {
+// Event Listeners
+answersForm.addEventListener("submit", (event) => {
   event.preventDefault();
 
-  if (currentIndex < questions.length - 1) {
-    currentIndex++;
+  const formData = new FormData(event.target);
+  const currentQuestion = quizQuestions[currentQuestionIndex];
+  const userResponse = formData.get(`question-${currentQuestion.id}-answer`);
 
-    const currentQuestion = questions[currentIndex];
+  if (currentQuestion.correct_answers[`${userResponse}_correct`] === "true") {
+    correctAnswers++;
+  }
 
-    displayQuestion(currentQuestion);
+  if (currentQuestionIndex < quizQuestions.length - 1) {
+    currentQuestionIndex++;
+    const nextQuestion = quizQuestions[currentQuestionIndex];
+    displayQuestion(nextQuestion);
   } else {
-    //
-    //
+    questionContainer.textContent = `${Math.ceil(
+      (correctAnswers / quizQuestions.length) * 100
+    )}%`;
+    answersList.remove();
+    answersForm.remove();
   }
 });
+
+// Initial Render
+displayQuestion(currentQuestion);
