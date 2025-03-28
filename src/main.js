@@ -1,5 +1,5 @@
 import "./style.css";
-
+import 'chartist/dist/index.css';
 import { PieChart } from "chartist";
 
 // DOM Elements
