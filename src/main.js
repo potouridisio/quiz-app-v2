@@ -1,5 +1,7 @@
 import "./style.css";
 
+import { PieChart } from "chartist";
+
 // DOM Elements
 const questionContainer = document.querySelector("#questionQuestion");
 const answersList = document.querySelector("#questionAnswersList");
@@ -11,7 +13,7 @@ const apiResponse = await fetch("https://quizapi.io/api/v1/questions", {
     "X-Api-Key": import.meta.env.VITE_API_KEY,
   },
 });
-const quizQuestions = await apiResponse.json();
+const quizQuestions = (await apiResponse.json()).slice(0, 5);
 
 // State Variables
 let currentQuestionIndex = 0;
@@ -58,11 +60,17 @@ answersForm.addEventListener("submit", (event) => {
     const nextQuestion = quizQuestions[currentQuestionIndex];
     displayQuestion(nextQuestion);
   } else {
-    questionContainer.textContent = `${Math.ceil(
-      (correctAnswers / quizQuestions.length) * 100
-    )}%`;
+    questionContainer.remove();
     answersList.remove();
     answersForm.remove();
+
+    const correctAnswersPercentage = Math.round(
+      (correctAnswers / quizQuestions.length) * 100
+    );
+
+    new PieChart("#chart", {
+      series: [correctAnswersPercentage, 100 - correctAnswersPercentage],
+    });
   }
 });
 
