@@ -1,0 +1,29 @@
+[33mcommit 1d3146fa62cc04fc560695d1b60504104a813a78[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mrafail[m[33m, [m[1;31morigin/master[m[33m, [m[1;31morigin/HEAD[m[33m, [m[1;32mmaster[m[33m)[m
+Author: Ioannis Potouridis <potouridisio@gmail.com>
+Date:   Fri Mar 28 18:51:07 2025 +0200
+
+    Init commit for results
+
+[33mcommit 621a54d9965758d0273dcd81be22328a95192416[m
+Author: Ioannis Potouridis <potouridisio@gmail.com>
+Date:   Fri Mar 28 18:33:28 2025 +0200
+
+    Implement quiz
+
+[33mcommit 64613980baace6d3a9150577902ded3d42f4fe2e[m
+Author: Ioannis Potouridis <potouridisio@gmail.com>
+Date:   Mon Mar 24 19:29:33 2025 +0200
+
+    Fetch and display questions
+
+[33mcommit 5db7811c2323ee61fc80d98c0762bc12f47539b4[m
+Author: Ioannis Potouridis <potouridisio@gmail.com>
+Date:   Fri Mar 21 18:55:36 2025 +0200
+
+    Install Tailwind CSS
+
+[33mcommit d555a208a517ae2b6bff42c760e84e26db028b1d[m
+Author: Ioannis Potouridis <potouridisio@gmail.com>
+Date:   Fri Mar 21 18:50:28 2025 +0200
+
+    Initialize Quiz App v2

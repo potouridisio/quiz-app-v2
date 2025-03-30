@@ -68,9 +68,16 @@ answersForm.addEventListener("submit", (event) => {
       (correctAnswers / quizQuestions.length) * 100
     );
 
-    new PieChart("#chart", {
-      series: [correctAnswersPercentage, 100 - correctAnswersPercentage],
+    var data = {
+      series: [correctAnswersPercentage, 100 - correctAnswersPercentage]
+    };
+    var sum = function(a, b) { return a + b };
+    new PieChart('#chart', data, {
+      labelInterpolationFnc: function(value) {
+        return Math.round(value / data.series.reduce(sum) * 100) + '%';
+      }
     });
+
   }
 });
 
