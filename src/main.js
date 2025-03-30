@@ -1,6 +1,7 @@
 import "./style.css";
 
 import { PieChart } from "chartist";
+import 'chartist/dist/index.css';
 
 // DOM Elements
 const questionContainer = document.querySelector("#questionQuestion");
