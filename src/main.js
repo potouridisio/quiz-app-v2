@@ -1,5 +1,5 @@
 import "./style.css";
-
+import 'chartist/dist/index.css';
 import { PieChart } from "chartist";
 
 // DOM Elements
@@ -10,7 +10,7 @@ const answersForm = document.querySelector("#questionAnswersForm");
 // API Data
 const apiResponse = await fetch("https://quizapi.io/api/v1/questions", {
   headers: {
-    "X-Api-Key": import.meta.env.VITE_API_KEY,
+    "X-Api-Key": import.meta.env.VITE_QUIZ_API_KEY,
   },
 });
 const quizQuestions = (await apiResponse.json()).slice(0, 5);
